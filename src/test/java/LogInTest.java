@@ -1,29 +1,45 @@
+import constants.Constants;
+import constants.ErrorMessages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.HomePage;
+import pages.LoginPage;
+import utils.Utils;
 
 public class LogInTest {
-    WebDriver driver;
+    private WebDriver driver;
+
+    @BeforeMethod
+    public void setup() {
+        driver = new ChromeDriver();
+        driver.get(Constants.URL);
+        Utils.maximizeWindow(driver);
+    }
+
+    @AfterMethod
+    public void closeDriver() {
+        utils.Utils.closeWindow(driver);
+    }
+
     @Test
     public void logInTest() {
-        driver = new ChromeDriver();
-        driver.get(Constants.URL);
-        Utils.maximizeWindow(driver);
-        driver = new ChromeDriver();
-        driver.get(Constants.URL);
-        Utils.maximizeWindow(driver);
-        driver.findElement(By.xpath(Constants.LOG_IN_BUTTON)).click();
-        Utils.waitInSeconds(1);
-        driver.findElement(By.xpath(Constants.LOG_IN_USERNAME)).sendKeys(Constants.USER_NAME);
-        driver.findElement(By.xpath(Constants.LOG_IN_PASSWORD)).sendKeys(Constants.PASSWORD);
-        driver.findElement(By.xpath(Constants.LOG_IN_BUTTON2)).click();
-        Utils.waitInSeconds(2);
+        HomePage homePage = new HomePage(driver);
+        homePage.clickOnLogInButton();
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.inputLogInCredentials();
+        loginPage.clickOnPopUpLoginButton();
+        System.out.println();
+        String actualMessajePopUpLoginButton = driver.findElement(By.xpath(Constants.POP_UP_LOG_IN_BUTTON)).getCssValue("background-color");
+        String expectedColour = Constants.POP_UP_LOG_IN_BUTTON_BLUE_COLOUR;
+        Assert.assertEquals(actualMessajePopUpLoginButton, expectedColour, ErrorMessages.BLUE_COLOUR_FROM_POP_UP_LOG_IN_BUTTON_ERROR);
         String actualMessage = driver.findElement(By.xpath(Constants.POP_UP_ALLERT_MESSAGE2)).getText();
-        //String actualMessage = driver.findElement(By.cssSelector("#nameofuser")).getText();
         System.out.println(actualMessage);
-        String expectedMessage = Constants.EXPECTED_MESSAGE_AFTER_SIGN_UP;
-        Assert.assertTrue(actualMessage.contains(Constants.FIRST_WORD_IN_POP_UP));
+        Assert.assertTrue(actualMessage.contains(Constants.FIRST_WORD_IN_POP_UP), ErrorMessages.WELCOME_MESSAGE_NOT_DISPLAYED_ERROR);
+
     }
 }
