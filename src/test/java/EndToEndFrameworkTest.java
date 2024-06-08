@@ -45,7 +45,7 @@ public class EndToEndFrameworkTest {
         // BUY PRODUCTS :
 
         Utils.waitInSeconds(1);
-        NokiaLumia1520Page nokiaLumia1520Page = new NokiaLumia1520Page(driver);
+        BuyProductsPage nokiaLumia1520Page = new BuyProductsPage(driver);
         nokiaLumia1520Page.addToCartNokiaLumia1520();
         String actualMessajeAddToCartButtonColor1 = driver.findElement(By.xpath(Constants.ADD_CART_BUTTON)).getCssValue("background-color");
         String expectedGreenColor1 = Constants.ADD_TO_CART_BUTTON_GREEN_COLOUR;
@@ -58,30 +58,30 @@ public class EndToEndFrameworkTest {
 
         // Buy Nexus6;
 
-        Nexu6Page nexu6Page = new Nexu6Page(driver);
-        nexu6Page.addToCartNexus6();
+        BuyProductsPage nexus6 = new BuyProductsPage(driver);
+        nexus6.addToCartNexus6();
         String actualMessajeAddToCartButtonColor = driver.findElement(By.xpath(Constants.ADD_CART_BUTTON)).getCssValue("background-color");
         String expectedGreenColor = Constants.ADD_TO_CART_BUTTON_GREEN_COLOUR;
         Assert.assertEquals(actualMessajeAddToCartButtonColor, expectedGreenColor, ErrorMessages.GREEN_COLOUR_FROM_ADD_TO_CART_BUTTON_ERROR);
-        nexu6Page.addToCartButton();
-        String actualMessage2 = Utils.getAlertMessage(driver);
+        nexus6.addToCartButton();
+        String actualMessageNexus6 = Utils.getAlertMessage(driver);
         String expectedMessage1 = Constants.POP_UP_MESSAGE1;
-        Assert.assertEquals(actualMessage2, expectedMessage1);
-        nexu6Page.acceptAndReturnToHomePage();
+        Assert.assertEquals(actualMessageNexus6, expectedMessage1);
+        nexus6.acceptAndReturnToHomePage();
 
         //Buy Iphone6;
 
-        Iphone632GbPage iphone632GbPage = new Iphone632GbPage(driver);
-        iphone632GbPage.addToCartIphone632Gb();
+        BuyProductsPage iphone632Gb = new BuyProductsPage(driver);
+        iphone632Gb.addToCartIphone632Gb();
         System.out.println();
         String actualMessajeAddToCartButtonColour = driver.findElement(By.xpath(Constants.ADD_CART_BUTTON)).getCssValue("background-color");
         String expectedGreenColour = Constants.ADD_TO_CART_BUTTON_GREEN_COLOUR;
         Assert.assertEquals(actualMessajeAddToCartButtonColour, expectedGreenColour, ErrorMessages.GREEN_COLOUR_FROM_ADD_TO_CART_BUTTON_ERROR);
-        iphone632GbPage.addToCartButton();
-        String actualMessage3 = Utils.getAlertMessage(driver);
+        iphone632Gb.addToCartButton();
+        String actualMessageIphone = Utils.getAlertMessage(driver);
         String expectedMessage2 = Constants.POP_UP_MESSAGE1;
-        Assert.assertEquals(actualMessage3, expectedMessage2);
-        iphone632GbPage.acceptAlertMessage();
+        Assert.assertEquals(actualMessageIphone, expectedMessage2);
+        iphone632Gb.acceptAlertMessage();
 
         //Cart;
         CartPage cartPage = new CartPage(driver);

@@ -29,6 +29,7 @@ public class LogInTest {
     @Test
     public void logInTest() {
         HomePage homePage = new HomePage(driver);
+        System.out.println();
         homePage.clickOnLogInButton();
         LoginPage loginPage = new LoginPage(driver);
         loginPage.inputLogInCredentials();

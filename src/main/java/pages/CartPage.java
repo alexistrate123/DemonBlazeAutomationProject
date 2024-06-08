@@ -3,37 +3,71 @@ package pages;
 import constants.Constants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import utils.Utils;
 
-public class CartPage extends HomePage {
+public class CartPage extends BasePage {
+
+
     public CartPage(WebDriver driver) {
         super(driver);
     }
 
+    @FindBy(xpath = "//a[@href='cart.html']")
+    WebElement cartButton;
+
+    @FindBy(xpath = "//button[@class='btn btn-success']")
+    WebElement placeOrderButton;
+
+    @FindBy(xpath ="//input[@id='name']")
+    WebElement nameField;
+
+    @FindBy(xpath ="//input[@id='country']")
+    WebElement countryField;
+
+    @FindBy(xpath = "//input[@id='city']")
+    WebElement cityField;
+
+    @FindBy(xpath = "//input[@id='card']")
+    WebElement creditCardField;
+
+    @FindBy(xpath = "//input[@id='month']")
+    WebElement monthField;
+
+    @FindBy(xpath ="//input[@id='year']")
+    WebElement yearField;
+
+    @FindBy(xpath = "//button[@onclick='purchaseOrder()']")
+    WebElement purchaseButton;
+
+    @FindBy(xpath = "//button[@class='confirm btn btn-lg btn-primary']")
+    WebElement okButton;
+
     public void clickOnCartButton() {
-        this.driver.findElement(By.xpath(Constants.CART_BUTTON)).click();
+        cartButton.click();
         Utils.waitInSeconds(2);
     }
 
     public void clickOnPlaceOrderButton() {
-        this.driver.findElement(By.xpath(Constants.PLACE_ORDER_BUTTON)).click();
+        placeOrderButton.click();
         Utils.waitInSeconds(2);
     }
 
     public void inputPlaceOrderCredentials() {
-        this.driver.findElement(By.xpath(Constants.NAME_FIELD)).sendKeys(Constants.NAME);
-        this.driver.findElement(By.xpath(Constants.COUNTRY_FIELD)).sendKeys(Constants.COUNTRY);
-        this.driver.findElement(By.xpath(Constants.CITY_FIELD)).sendKeys(Constants.City);
-        this.driver.findElement(By.xpath(Constants.CREDIT_CARD_FIELD)).sendKeys(Constants.CREDIT_CARD);
-        this.driver.findElement(By.xpath(Constants.MONTH_FIELD)).sendKeys(Constants.MONTH);
-        this.driver.findElement(By.xpath(Constants.YEAR_FIELD)).sendKeys(Constants.YEAR);
+        nameField.sendKeys(Constants.NAME);
+        countryField.sendKeys(Constants.COUNTRY);
+        cityField.sendKeys(Constants.City);
+        creditCardField.sendKeys(Constants.CREDIT_CARD);
+        monthField.sendKeys(Constants.MONTH);
+        yearField.sendKeys(Constants.YEAR);
         Utils.waitInSeconds(2);
     }
 
     public void clickOnPurchaseAndOkButton() {
-        this.driver.findElement(By.xpath(Constants.PURCHASE_BUTTON)).click();
+        purchaseButton.click();
         Utils.waitInSeconds(2);
-        this.driver.findElement(By.xpath(Constants.OK_BUTTON)).click();
+        okButton.click();
         Utils.waitInSeconds(2);
     }
 }

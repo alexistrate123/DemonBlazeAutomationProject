@@ -4,22 +4,34 @@ import constants.Constants;
 import constants.ErrorMessages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import utils.Utils;
 
-public class LoginPage extends HomePage {
+public class LoginPage extends BasePage {
+
 
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
+    @FindBy(xpath = "//input[@id='loginusername']")
+    WebElement logInUsername;
+
+    @FindBy(xpath = "//input[@id='loginpassword']")
+    WebElement logInPassword;
+
+    @FindBy(xpath = "//button[@onclick='logIn()']")
+    WebElement popUpLogInButton;
+
     public void inputLogInCredentials() {
-        this.driver.findElement(By.xpath(Constants.LOG_IN_USERNAME)).sendKeys(Constants.USER_NAME);
-        this.driver.findElement(By.xpath(Constants.LOG_IN_PASSWORD)).sendKeys(Constants.PASSWORD);
+        logInUsername.sendKeys(Constants.USER_NAME);
+        logInPassword.sendKeys(Constants.PASSWORD);
         Utils.waitInSeconds(2);
     }
 
     public void clickOnPopUpLoginButton() {
-        this.driver.findElement(By.xpath(Constants.POP_UP_LOG_IN_BUTTON)).click();
+        popUpLogInButton.click();
         Utils.waitInSeconds(2);
     }
 
